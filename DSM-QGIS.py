@@ -1,6 +1,6 @@
 """
-QGIS Processing Algorithm: LIDAR Workflow (Ground + Buildings → DSM + Filled)
-Ejecuta pipeline completo: filtrado, fusión, rasterización y fillnodata
+QGIS: LIDAR Workflow (Ground + Buildings → DSM + Fill NoData)
+Pipeline completo: filtrado, fusión, rasterización y fillnodata
 """
 
 from qgis.PyQt.QtCore import QCoreApplication
@@ -32,7 +32,7 @@ class LidarWorkflowProcessor(QgsProcessingAlgorithm):
         return 'lidar_workflow_processor'
 
     def displayName(self):
-        return self.tr('LIDAR Workflow (Ground+Buildings→DSM)')
+        return self.tr('Flujo de Trabajo LiDAR (Suelo+Edificios→DSM)')
 
     def group(self):
         return self.tr('Point Cloud Processing')
@@ -44,9 +44,9 @@ class LidarWorkflowProcessor(QgsProcessingAlgorithm):
         return self.tr(
             'Procesa archivos LAZ/LAS:\n'
             '1. Filtra suelo (clase 2) y edificios (clase 6)\n'
-            '2. Fusiona ambas clasificaciones\n'
-            '3. Genera raster DSM con resolución configurable\n'
-            '4. Rellena NoData usando gdal_fillnodata\n\n'
+            '2. Fusiona (merge) ambas clasificaciones\n'
+            '3. Genera raster DSM\n'
+            '4. Rellena NoData de los rasters generados\n\n'
             'Requiere PDAL y GDAL instalados en el sistema.'
         )
 
@@ -73,7 +73,7 @@ class LidarWorkflowProcessor(QgsProcessingAlgorithm):
 
         self.addParameter(QgsProcessingParameterNumber(
             self.FILL_DISTANCE,
-            self.tr('Distancia de relleno NoData (píxeles)'),
+            self.tr('Distancia de relleno NoData (píxeles)'), 
             type=QgsProcessingParameterNumber.Integer,
             defaultValue=75,
             minValue=1,
@@ -93,7 +93,7 @@ class LidarWorkflowProcessor(QgsProcessingAlgorithm):
         fill_distance = self.parameterAsInt(parameters, self.FILL_DISTANCE, context)
         cleanup = self.parameterAsBoolean(parameters, self.CLEANUP_TEMP, context)
 
-        nodata_folder = output_folder / 'nodata_raster_final'
+        nodata_folder = output_folder / 'rasters_finales_filled'
         temp_folder = output_folder / 'temp'
         nodata_folder.mkdir(parents=True, exist_ok=True)
         temp_folder.mkdir(parents=True, exist_ok=True)
@@ -143,7 +143,7 @@ class LidarWorkflowProcessor(QgsProcessingAlgorithm):
                     continue
                 current_step += 1
 
-                # 3. Fusionar
+                # 3. Fusionar suelo + edificios
                 feedback.setCurrentStep(current_step)
                 feedback.pushInfo("Fusionando clasificaciones...")
                 pipeline = self._create_merge_pipeline([output_suelo, output_edificios], output_merged)
@@ -184,7 +184,7 @@ class LidarWorkflowProcessor(QgsProcessingAlgorithm):
                 current_step += (5 - (current_step % 5))
                 continue
 
-        # Relleno de NoData
+        # Rellenar NoData en los rasters generados
         feedback.setCurrentStep(current_step)
         if raster_outputs:
             feedback.pushInfo("\n" + "="*50)
@@ -275,7 +275,7 @@ class LidarWorkflowProcessor(QgsProcessingAlgorithm):
             feedback.reportError(f"Error: {e.stderr.strip() if e.stderr else 'Sin detalles'}")
             return False
         except subprocess.TimeoutExpired:
-            feedback.reportError("Timeout: comando excedió 5 minutos")
+            feedback.reportError("Timeout: comando excedió los 5 minutos")
             return False
 
     def _detect_fillnodata(self):
