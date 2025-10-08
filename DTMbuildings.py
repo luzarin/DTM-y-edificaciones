@@ -1,8 +1,8 @@
 """
-Workflow de procesamiento LIDAR (Funciona en QGIS y standalone)
+Workflow de procesamiento LIDAR
 - Filtrado de puntos (suelo y edificios)
 - Fusión de clasificaciones
-- Creación de DTM+edificaciones 
+- Creación de DTM+edificacioness
 - Relleno de datos faltantes
 """
 
