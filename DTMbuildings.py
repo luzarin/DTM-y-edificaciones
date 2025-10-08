@@ -2,7 +2,7 @@
 Workflow de procesamiento LIDAR (Funciona en QGIS y standalone)
 - Filtrado de puntos (suelo y edificios)
 - Fusión de clasificaciones
-- Creación de DSM raster
+- Creación de DTM+edificaciones 
 - Relleno de datos faltantes
 """
 
@@ -150,8 +150,8 @@ for i, laz_file in enumerate(laz_files, 1):
         if not run_pdal_pipeline(pipeline, pipeline_merge, "fusión"):
             continue
         
-        # --- 4. EXPORTAR A RASTER (DSM) ---
-        print("  📊 Generando raster DSM...")
+        # --- 4. EXPORTAR A RASTER (DTM+edificaciones) ---
+        print("  📊 Generando raster DTM+edificaciones...")
         pipeline = create_raster_pipeline_json(output_merged, raster_output, RESOLUTION)
         if not run_pdal_pipeline(pipeline, pipeline_raster, "generación de raster"):
             continue
@@ -230,7 +230,7 @@ for temp_file in TEMP_FOLDER.glob("*.json"):
 # FIN
 # ============================================================================
 print(f"{'='*70}")
-print("🎉 ¡Proceso finalizado exitosamente!")
+print("🎉 ¡Proceso finalizado!")
 print(f"📁 Resultados en: {OUTPUT_FOLDER}")
 print(f"📁 Rasters rellenados en: {NODATA_FOLDER}")
 print(f"📊 Archivos procesados: {len(raster_outputs)}/{len(laz_files)}")

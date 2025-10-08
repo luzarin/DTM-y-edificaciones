@@ -1,5 +1,5 @@
 """
-QGIS: LIDAR Workflow (Ground + Buildings → DSM + Fill NoData)
+QGIS: LIDAR Workflow (Ground + Buildings → DTM+buildings + Fill NoData)
 Pipeline completo: filtrado, fusión, rasterización y fillnodata
 """
 
@@ -32,7 +32,7 @@ class LidarWorkflowProcessor(QgsProcessingAlgorithm):
         return 'lidar_workflow_processor'
 
     def displayName(self):
-        return self.tr('Flujo de Trabajo LiDAR (Suelo+Edificios→DSM)')
+        return self.tr('Flujo de Trabajo LiDAR (Suelo+Edificios → DTM+edificaciones)')
 
     def group(self):
         return self.tr('Point Cloud Processing')
@@ -45,7 +45,7 @@ class LidarWorkflowProcessor(QgsProcessingAlgorithm):
             'Procesa archivos LAZ/LAS:\n'
             '1. Filtra suelo (clase 2) y edificios (clase 6)\n'
             '2. Fusiona (merge) ambas clasificaciones\n'
-            '3. Genera raster DSM\n'
+            '3. Genera raster DTM+edificaciones\n'
             '4. Rellena NoData de los rasters generados\n\n'
             'Requiere PDAL y GDAL instalados en el sistema.'
         )
@@ -155,7 +155,7 @@ class LidarWorkflowProcessor(QgsProcessingAlgorithm):
 
                 # 4. Generar raster
                 feedback.setCurrentStep(current_step)
-                feedback.pushInfo("Generando raster DSM...")
+                feedback.pushInfo("Generando raster DTM+edificaciones...")
                 pipeline = self._create_raster_pipeline(output_merged, raster_output, resolution)
                 pipeline_file = temp_folder / f"pipeline_raster_{base_name}.json"
                 pipeline_files.append(pipeline_file)
