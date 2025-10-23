@@ -8,7 +8,7 @@ Para agregarlo como herramienta:
 1. Ir a Scripts
 2. Add Script to Toolbox
 
-![alt text]("C:\repos\DTM y edificaciones\image.png")
+![alt text](img/image.png)
 
 ## dtmbuildings.py
 Script standalone: Python
