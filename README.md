@@ -4,6 +4,9 @@ Script de procesamiento (herramienta) y script standalone para generar Digital T
 
 ## dtmbuildings-qgis.py
 Script de procesamiento: Processing Toolbox
+Para agregarlo como herramienta:
+1. Ir a Scripts
+2. Add Script to Toolbox
 
 
 ## dtmbuildings.py
