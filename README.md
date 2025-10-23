@@ -8,7 +8,7 @@ Para agregarlo como herramienta:
 1. Ir a Scripts
 2. Add Script to Toolbox
 
-![herramienta](tools.png)
+![herramienta](toolqgis.png)
 
 ## dtmbuildings.py
 Script standalone: Python
