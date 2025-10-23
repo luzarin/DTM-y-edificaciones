@@ -2,7 +2,7 @@
 Workflow de procesamiento LIDAR
 - Filtrado de puntos (suelo y edificios)
 - Fusión de clasificaciones
-- Creación de DTM+edificacioness
+- Creación de DTM+edificaciones
 - Relleno de datos faltantes
 """
 
@@ -17,7 +17,7 @@ OUTPUT_FOLDER = Path("C:/Users/lucas/Downloads/toledo3/resultados")
 NODATA_FOLDER = Path("C:/Users/lucas/Downloads/toledo3/resultados/nodata_rasters")
 TEMP_FOLDER = Path("C:/Users/lucas/Downloads/toledo3/temp")
 
-# Crear carpetas si no existen
+# Crear carpetas
 OUTPUT_FOLDER.mkdir(parents=True, exist_ok=True)
 NODATA_FOLDER.mkdir(parents=True, exist_ok=True)
 TEMP_FOLDER.mkdir(parents=True, exist_ok=True)
