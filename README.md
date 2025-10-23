@@ -8,7 +8,7 @@ Para agregarlo como herramienta:
 1. Ir a Scripts
 2. Add Script to Toolbox
 
-![herramienta](tool.jpg)
+![herramienta](tools.png)
 
 ## dtmbuildings.py
 Script standalone: Python
