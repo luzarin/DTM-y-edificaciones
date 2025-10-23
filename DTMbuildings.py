@@ -2,7 +2,7 @@
 Workflow de procesamiento LIDAR
 - Filtrado de puntos (suelo y edificios)
 - Fusión de clasificaciones
-- Creación de DTM+edificaciones
+- Creación de DTM + edificaciones
 - Relleno de datos faltantes
 """
 
