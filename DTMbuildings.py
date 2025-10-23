@@ -11,9 +11,7 @@ import json
 import subprocess
 from pathlib import Path
 
-# ============================================================================
-# CONFIGURACIÓN DE RUTAS
-# ============================================================================
+# CONFIGURACIÓN RUTAS
 INPUT_FOLDER = Path("C:/Users/lucas/Downloads/toledo3")
 OUTPUT_FOLDER = Path("C:/Users/lucas/Downloads/toledo3/resultados")
 NODATA_FOLDER = Path("C:/Users/lucas/Downloads/toledo3/resultados/nodata_rasters")
@@ -24,15 +22,11 @@ OUTPUT_FOLDER.mkdir(parents=True, exist_ok=True)
 NODATA_FOLDER.mkdir(parents=True, exist_ok=True)
 TEMP_FOLDER.mkdir(parents=True, exist_ok=True)
 
-# ============================================================================
-# CONFIGURACIÓN DE PROCESAMIENTO
-# ============================================================================
+# CONFIGURACIÓN PROCESAMIENTO
 RESOLUTION = 0.5  # Resolución del raster en metros
 FILL_DISTANCE = 75  # Distancia para rellenar NoData
 
-# ============================================================================
 # LISTA DE ARCHIVOS
-# ============================================================================
 laz_files = list(INPUT_FOLDER.glob("*.laz"))
 print(f"📦 Encontrados {len(laz_files)} archivos LAZ para procesar\n")
 
@@ -40,9 +34,7 @@ if not laz_files:
     print("⚠️  No se encontraron archivos .laz en la carpeta de entrada")
     exit()
 
-# ============================================================================
 # FUNCIONES AUXILIARES
-# ============================================================================
 def run_command(cmd, description):
     """Ejecuta un comando y maneja errores"""
     try:
@@ -107,9 +99,7 @@ def run_pdal_pipeline(pipeline, pipeline_file, description):
     cmd = ["pdal", "pipeline", str(pipeline_file)]
     return run_command(cmd, description)
 
-# ============================================================================
 # PROCESAMIENTO
-# ============================================================================
 raster_outputs = []
 
 for i, laz_file in enumerate(laz_files, 1):
@@ -163,9 +153,7 @@ for i, laz_file in enumerate(laz_files, 1):
         print(f"❌ Error procesando {laz_file.name}: {e}\n")
         continue
 
-# ============================================================================
 # DETECTAR COMANDO GDAL_FILLNODATA
-# ============================================================================
 def get_fillnodata_command():
     """Detecta cómo ejecutar gdal_fillnodata en el sistema"""
     # Probar diferentes opciones
@@ -185,15 +173,12 @@ def get_fillnodata_command():
     
     return None
 
-# ============================================================================
 # RELLENO DE DATOS FALTANTES
-# ============================================================================
 if raster_outputs:
     print(f"\n{'='*70}")
     print(f"🔧 Iniciando relleno de datos faltantes (fillnodata)")
     print(f"{'='*70}\n")
     
-    # Detectar comando gdal_fillnodata
     fillnodata_cmd = get_fillnodata_command()
     
     if fillnodata_cmd is None:
@@ -219,16 +204,12 @@ if raster_outputs:
             else:
                 print(f"⚠️  No se pudo rellenar {raster_file.name}\n")
 
-# ============================================================================
 # LIMPIEZA DE ARCHIVOS TEMPORALES
-# ============================================================================
 print("🧹 Limpiando archivos temporales...")
 for temp_file in TEMP_FOLDER.glob("*.json"):
     temp_file.unlink()
 
-# ============================================================================
 # FIN
-# ============================================================================
 print(f"{'='*70}")
 print("🎉 ¡Proceso finalizado!")
 print(f"📁 Resultados en: {OUTPUT_FOLDER}")
