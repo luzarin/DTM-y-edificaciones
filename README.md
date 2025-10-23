@@ -1,5 +1,5 @@
-# Generador DTM+Edificaciones
-Script de procesamiento (herramienta) y script standalone para generar MDT con edificaciones desde archivos laz/las.
+# Generador Digital Terrain Model (DTM) + edificaciones
+Script de procesamiento (herramienta) y script standalone para generar Digital Terrain Model (DTM) con edificaciones desde archivos laz/las.
 
 
 ## dtmbuildings-qgis.py
