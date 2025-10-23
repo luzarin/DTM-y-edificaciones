@@ -1,5 +1,5 @@
 """
-QGIS: LIDAR Workflow (Suelo + Edificaciones → DTM+edificaciones + Fill NoData)
+QGIS: LIDAR Workflow (Suelo + Edificaciones → DTM + edificaciones + Fill NoData)
 Pipeline completo: filtrado, fusión, rasterización y fillnodata
 """
 
