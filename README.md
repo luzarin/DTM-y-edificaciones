@@ -8,7 +8,7 @@ Para agregarlo como herramienta:
 1. Ir a Scripts
 2. Add Script to Toolbox
 
-![tool](https://github.com/luzarin/DTM-y-edificaciones/raw/a9ad8f890d27fa9d03c0437a5fef7fda2af48681/tool.png)
+![tool](https://github.com/luzarin/DTM-y-edificaciones/raw/556d127cb0498200752185816a08ff22fe197c47/herramienta.jpg)
 
 ## dtmbuildings.py
 Script standalone: Python
